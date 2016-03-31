@@ -5,28 +5,27 @@ import factory.DBConnection;
 import model.Conta;
 
 import java.sql.*;
-//import java.util.*;
-//import javax.swing.*;
 
 public class ContaDAO
 {
-	protected Statement statement = null;
-	protected Connection conn = DBConnection.getConnection();
-	protected PreparedStatement pstm = null;
-	protected ResultSet rs = null;   
+	//protected Statement statement = null;
+	//protected Connection conn = DBConnection.getConnection();
+	//protected PreparedStatement pstm = null;
+	//protected ResultSet rs = null;   
    
    //---------------------------------
-	public void incluir(ContaTO to)
+	/*public void incluir(ContaTO to)
 	{
-		String sqlInsert = "INSERT INTO Conta(idConta, agencia, numeroConta, saldo) VALUES (?, ?, ?, ?)";
+		String sqlInsert = "INSERT INTO Conta(agencia, numeroConta, saldo, id_Cliente) VALUES (?, ?, ?, ?)";
 
    		try (Connection conn = DBConnection.getConnection();
 			 PreparedStatement stm = conn.prepareStatement(sqlInsert);)
    		{
-   			stm.setInt(1, to.getIdConta());
-   			stm.setString(2, to.getAgencia());
-   			stm.setString(3, to.getConta());
-            stm.setDouble(4, to.getSaldo());
+   			//stm.setInt(1, to.getIdConta());
+   			stm.setString(1, to.getAgencia());
+   			stm.setString(2, to.getConta());
+            stm.setDouble(3, to.getSaldo());
+            stm.setInt(4, to.getIdCliente());
    			stm.execute();
    		}
    		catch (SQLException e)
@@ -68,7 +67,7 @@ public class ContaDAO
         {
    			e.printStackTrace();
         }
-   	}
+   	}*/
       
 	public ContaTO carregar(int idConta)
     {
@@ -99,11 +98,9 @@ public class ContaDAO
         }
    		return to;
 	}
-      
-   //-------------------------------
    
    //p saber o id do cliente
-	public String consultarIdCliente(Conta co)
+	public String consultarIdCliente(ContaTO to)
 	{
 		String dados = "";      
 		String sqlSelect = "SELECT * FROM Conta WHERE numeroConta = ?;";
@@ -111,7 +108,7 @@ public class ContaDAO
 		try (Connection conn = DBConnection.getConnection();
 			 PreparedStatement stm = conn.prepareStatement(sqlSelect);)
 		{
-			stm.setString(1, co.getConta());
+			stm.setString(1, to.getConta());
 
 			try (ResultSet rs = stm.executeQuery();)
 			{
@@ -133,7 +130,7 @@ public class ContaDAO
 	}
    
    //distingue as contas do cliente
-	public String consultarIdConta(Conta co)
+	public String consultarIdConta(ContaTO to)
 	{	
 		String dados = "";
 		String sqlSelect = "SELECT * FROM Conta WHERE numeroConta = ?;";
@@ -141,7 +138,7 @@ public class ContaDAO
 		try (Connection conn = DBConnection.getConnection();
 			 PreparedStatement stm = conn.prepareStatement(sqlSelect);)
 		{
-			stm.setString(1, co.getConta());
+			stm.setString(1, to.getConta());
 
 			try (ResultSet rs = stm.executeQuery();)
 			{
@@ -162,7 +159,7 @@ public class ContaDAO
 		return dados;
 	}
    
-	public String consultarSaldo(Conta co)
+	public String consultarSaldo(ContaTO to)
 	{  
 		String dados = "";
 		String sqlSelect = "SELECT * FROM Conta WHERE idConta = ?;";
@@ -170,7 +167,7 @@ public class ContaDAO
 		try (Connection conn = DBConnection.getConnection();
 			 PreparedStatement stm = conn.prepareStatement(sqlSelect);)
 		{
-			stm.setInt(1, co.getIdConta());
+			stm.setInt(1, to.getIdConta());
 
 			try (ResultSet rs = stm.executeQuery();)
 			{
@@ -192,7 +189,7 @@ public class ContaDAO
 	}
    
    //atualizar saldo     
-	public int atualizarSaldo(Conta co)
+	public int atualizarSaldo(ContaTO to)
 	{
 		String sqlUpdate = "UPDATE Conta SET saldo = ? WHERE idConta= ?;";
 		int result = 0;
@@ -201,19 +198,14 @@ public class ContaDAO
 			  PreparedStatement stm = conn.prepareStatement(sqlUpdate);)
 		{
          
-			stm.setDouble(1, co.getSaldo());
-			stm.setInt(2, co.getIdConta());
+			stm.setDouble(1, to.getSaldo());
+			stm.setInt(2, to.getIdConta());
 			stm.execute();
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
-		}
-      
-		finally
-		{
-			DBConnection.close(conn, pstm, null); //null pq n tem resultset
-		}     
+		}      
 		return result;
 	}  
 }

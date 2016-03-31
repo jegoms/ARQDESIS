@@ -6,7 +6,7 @@ public class DBConnection
    private static final String URL_MYSQL = "jdbc:mysql://localhost:3306/ProjetoSistemaBancario";
    private static final String DRIVER_CLASS_MYSQL = "com.mysql.jdbc.Driver";
    private static final String USER = "root";
-   private static final String PASS = ""; //senha!!
+   private static final String PASS = "9114115693532601"; //senha!!
    
    public static Connection getConnection()
    {

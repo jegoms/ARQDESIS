@@ -8,9 +8,9 @@ public class Cliente
 	private String nomeTitular;
 	private int idCliente;
 	
-	public Cliente(/*int idCliente, */String n)
+	public Cliente(int idCliente, String n)
 	{
-		//setIdCliente(idCliente);
+		setIdCliente(idCliente);
 		setNome(n);
 	}
 	

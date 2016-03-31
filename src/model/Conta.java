@@ -19,7 +19,7 @@ public class Conta
 		setAgencia(agencia);
 		setConta(conta);
 		setIdCliente(idCliente);
-		//setIdConta(idConta);
+		setIdConta(idConta);
 	}
 	
 	public double getSaldo()
@@ -78,7 +78,7 @@ public class Conta
 		this.idCliente = idCliente;
 	}
 	
-	public void criar()
+	/*public void criar()
 	{
 		ContaDAO dao = new ContaDAO();
 		ContaTO to = new ContaTO();
@@ -88,9 +88,9 @@ public class Conta
 		to.setConta(conta);
 		to.setIdCliente(idCliente);
 		dao.incluir(to);
-	}
+	}*/
 
-	public void atualizar()
+	/*public void atualizar()
 	{
 		ContaDAO dao = new ContaDAO();
 		ContaTO to = new ContaTO();
@@ -100,15 +100,15 @@ public class Conta
 		to.setConta(conta);
 		to.setIdCliente(idCliente);
 		dao.atualizar(to);
-	}
+	}*/
 
-	public void excluir()
+	/*public void excluir()
 	{
 		ContaDAO dao = new ContaDAO();
 		ContaTO to = new ContaTO();
 		to.setIdConta(idConta);
 		dao.excluir(to);
-	}
+	}*/
 
 	public void carregar()
 	{

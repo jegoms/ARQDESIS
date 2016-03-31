@@ -17,8 +17,8 @@ public class ClienteTest
 	@Before
 	public void setUp() throws Exception
 	{
-		cliente = new Cliente("Bela");
-		copia = new Cliente("Bela");
+		cliente = new Cliente(2, "Bela");
+		copia = new Cliente(2, "Bela");
 	}
 	
 	@Test
@@ -26,8 +26,8 @@ public class ClienteTest
 	{
 		//para funcionar o cliente 1 deve ter sido carregado no banco por fora
 		//insert into cliente (id, nome, fone) values (1, 'nome1', 'fone1');
-		Cliente fixture = new Cliente("nome1");
-		Cliente novo = new Cliente(null);
+		Cliente fixture = new Cliente(1, "Antônio da Silva");
+		Cliente novo = new Cliente(0, null);
 		novo.carregar();
 		assertEquals("testa inclusao", novo, fixture);
 	}

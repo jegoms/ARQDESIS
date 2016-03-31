@@ -35,45 +35,13 @@ public class ContaTest
 	@Test
 	public void test00Carregar()
 	{
-		//para funcionar o cliente 1 deve ter sido carregado no banco por fora
-		//insert into cliente (id, nome, fone) values (1, 'nome1', 'fone1');
+		//para funcionar a conta 1 e o cliente 1 devem ter sido carregados no banco por fora
+		//INSERT INTO Conta(agencia, numeroConta, saldo, id_Cliente) VALUES('1111', '11111111', '10.00', '1');
+		//INSERT INTO Cliente(nome) VALUES('Antônio da Silva');
 		Conta fixture = new Conta(10.0, "1111", "11111111", 1);
 		Conta novo = new Conta(10, "1111", "11111111", 1);
 		novo.carregar();
 		assertEquals("testa inclusao", novo, fixture);
 	}
 
-	@Test
-	public void test01Criar()
-	{
-		conta.criar();
-		conta.carregar();
-		assertEquals("testa criacao", conta, copia);
-	}
-
-	@Test
-	public void test02Atualizar()
-	{
-		conta.setSaldo(50.00);
-		copia.setSaldo(50.00);		
-		conta.atualizar();
-		assertEquals("testa atualizacao", conta, copia);
-	}
-
-	@Test
-	public void test03Excluir()
-	{
-		conta.setSaldo(0);
-		conta.setAgencia(null);
-		conta.setConta(null);
-		conta.setIdConta(0);
-		conta.setIdCliente(0);
-		copia.setSaldo(0);
-		copia.setAgencia(null);
-		copia.setConta(null);
-		copia.setIdConta(0);
-		copia.setIdCliente(0);
-		conta.excluir();
-		assertEquals("testa exclusao", conta, copia);
-	}
 }

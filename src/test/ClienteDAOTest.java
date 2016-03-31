@@ -50,9 +50,10 @@ public class ClienteDAOTest
 	@Test
 	public void test01Inserir()
 	{
-		dao.incluir(to);		
-		ClienteTO novo = dao.carregar(to.getIdCliente());
-		novo.setIdCliente(to.getIdCliente());
+		dao.incluir(to);
+		//System.out.println(to.getIdCliente());
+		ClienteTO novo = dao.carregar(2);
+		//novo.setIdCliente(2);
 		assertEquals("testa inclusao", novo, to);
 	}
 	

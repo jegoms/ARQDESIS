@@ -37,12 +37,13 @@ public class ClienteDAO
 	public void incluir(ClienteTO to)
 	{
 		String sqlInsert = "INSERT INTO Cliente(nome) VALUES (?)";
-
+		
 		try (Connection conn = DBConnection.getConnection();
 			 PreparedStatement stm = conn.prepareStatement(sqlInsert);)
 		{
 			stm.setString(1, to.getNome());					
 			stm.execute();
+			to.setIdCliente(getLastId());			
 		}
 		catch (SQLException e)
 		{
@@ -50,6 +51,26 @@ public class ClienteDAO
 		}
 	}
 
+	public int getLastId()
+	{
+		String sqlSelect = "SELECT LAST_INSERT_ID()";
+		int id=0;
+		
+		try(PreparedStatement pst1 = conn.prepareStatement(sqlSelect);
+				ResultSet rs = pst1.executeQuery();)
+		{
+			if(rs.next())
+				id = rs.getInt("idCliente");
+				//id = rs.getInt("C");				
+		}
+		catch(SQLException ex)
+		{
+			ex.printStackTrace();
+		}
+		return id;
+	}
+	
+	
 	public void atualizar(ClienteTO to)
 	{
 		String sqlUpdate = "UPDATE Cliente SET nome=?, WHERE idCliente=?";
