@@ -1,18 +1,15 @@
 package dao;
 
 import factory.DBConnection;
+import model.Movimento;
+import to.MovimentoTO;
 
 import java.util.*;
 import java.sql.*;
 import javax.swing.*;
 
 public class MovimentoDAO
-{
-	protected Statement statement = null;
-	protected Connection conn = DBConnection.getConnection();
-	protected PreparedStatement pstm = null;
-	protected ResultSet rs = null;   
-   
+{   
 	public void incluir(MovimentoTO to)
 	{
 		String sqlInsert = "INSERT INTO Movimento(dataOperacao, tipoOperacao, agencia, conta, valor, saldoAtual, id_Conta) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -34,44 +31,6 @@ public class MovimentoDAO
 			e.printStackTrace();
 		}
 	}
-   
-	public void atualizar(MovimentoTO to)
-	{
-		String sqlUpdate = "UPDATE Movimento SET dataOperacao=?, tipoOperacao=?, agencia=?, conta=?, valor=?, saldoAtual=?, id_Conta=? WHERE idMovimento=?";
-
-		try (Connection conn = DBConnection.getConnection();
-				PreparedStatement stm = conn.prepareStatement(sqlUpdate);)
-		{
-			stm.setString(1, to.getData());
-			stm.setString(2, to.getTipo());
-			stm.setString(3, to.getAgencia());
-			stm.setString(4, to.getConta());
-			stm.setDouble(5, to.getValor());
-			stm.setDouble(6, to.getSaldoAtual());
-			stm.setInt(7, to.getIdConta());
-			stm.execute();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
-
-	public void excluir(MovimentoTO to)
-	{
-		String sqlDelete = "DELETE FROM Movimento WHERE idMovimento = ?";
-
-		try (Connection conn = DBConnection.getConnection();
-				PreparedStatement stm = conn.prepareStatement(sqlDelete);)
-		{
-			stm.setInt(1, to.getId());
-			stm.execute();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
 
 	public MovimentoTO carregar(int id)
 	{
@@ -86,13 +45,14 @@ public class MovimentoDAO
 			{
 				if (rs.next())
 				{           
-					to.setData(rs.getString("data"));
-					to.setTipo(rs.getString("tipo"));
+					to.setData(rs.getString("dataOperacao"));
+					to.setTipo(rs.getString("tipoOperacao"));
 					to.setAgencia(rs.getString("agencia"));
 					to.setConta(rs.getString("conta"));
 					to.setValor(rs.getDouble("valor"));
 					to.setSaldoAtual(rs.getDouble("saldoAtual"));
 					to.setIdConta(rs.getInt("id_Conta"));
+					to.setId(id);
 				}
 			}
 			catch (SQLException e)

@@ -1,107 +1,37 @@
 package dao;
 
 import java.sql.*;
-//import java.util.*;
 import javax.swing.*;
 
 import factory.DBConnection;
 import to.ClienteTO;
 
 public class ClienteDAO
-{
-	protected Statement statement = null;
-	protected Connection conn = DBConnection.getConnection();
-	protected PreparedStatement pstm = null;
-	protected ResultSet rs = null;
-      
+{     
    	//p saber o nome
 	public String consultarCliente(int idCliente)
 	{
 		String dados="";
-		try
-		{
-			String query = "SELECT * FROM Cliente WHERE idCliente = "+idCliente+";";
-			pstm = conn.prepareStatement(query);
-			rs = pstm.executeQuery();
-      
-			while( rs.next() )          
-				dados = rs.getString("nome");         
+		String sqlSelect = "SELECT * FROM Cliente WHERE idCliente = "+idCliente+";";
+		
+		try(Connection conn = DBConnection.getConnection();
+				 PreparedStatement pstm = conn.prepareStatement(sqlSelect);)
+		{									
+			try(ResultSet rs = pstm.executeQuery())
+			{      
+				while( rs.next() )          
+					dados = rs.getString("nome");
+			}
+			catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
 		}
 		catch(Exception e)
 		{
 			JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
 		}
 		return dados;
-	} 
-   
-	public void incluir(ClienteTO to)
-	{
-		String sqlInsert = "INSERT INTO Cliente(nome) VALUES (?)";
-		
-		try (Connection conn = DBConnection.getConnection();
-			 PreparedStatement stm = conn.prepareStatement(sqlInsert);)
-		{
-			stm.setString(1, to.getNome());					
-			stm.execute();
-			to.setIdCliente(getLastId());			
-		}
-		catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-	}
-
-	public int getLastId()
-	{
-		String sqlSelect = "SELECT LAST_INSERT_ID()";
-		int id=0;
-		
-		try(PreparedStatement pst1 = conn.prepareStatement(sqlSelect);
-				ResultSet rs = pst1.executeQuery();)
-		{
-			if(rs.next())
-				id = rs.getInt("idCliente");
-				//id = rs.getInt("C");				
-		}
-		catch(SQLException ex)
-		{
-			ex.printStackTrace();
-		}
-		return id;
-	}
-	
-	
-	public void atualizar(ClienteTO to)
-	{
-		String sqlUpdate = "UPDATE Cliente SET nome=?, WHERE idCliente=?";
-
-		try (Connection conn = DBConnection.getConnection();
-			 PreparedStatement stm = conn.prepareStatement(sqlUpdate);)
-		{
-			stm.setString(1, to.getNome());			
-			stm.setInt(2, to.getIdCliente());
-			stm.execute();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
-
-	public void excluir(ClienteTO to)
-	{
-		String sqlDelete = "DELETE FROM Cliente WHERE idCliente = ?";
- 
-		try (Connection conn = DBConnection.getConnection();
-			 PreparedStatement stm = conn.prepareStatement(sqlDelete);)
-		{
-			stm.setInt(1, to.getIdCliente());
-			stm.execute();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
 	}
 
 	public ClienteTO carregar(int id)
@@ -117,7 +47,8 @@ public class ClienteDAO
 			{
 				if (rs.next())
 				{
-					to.setNome(rs.getString("nome"));				
+					to.setNome(rs.getString("nome"));
+					to.setIdCliente(id);
 				}
 			}
 			catch (SQLException e)

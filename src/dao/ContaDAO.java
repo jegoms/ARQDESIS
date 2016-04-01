@@ -2,77 +2,17 @@ package dao;
 
 import to.ContaTO;
 import factory.DBConnection;
-import model.Conta;
+//import model.Conta;
 
 import java.sql.*;
 
 public class ContaDAO
-{
-	//protected Statement statement = null;
-	//protected Connection conn = DBConnection.getConnection();
-	//protected PreparedStatement pstm = null;
-	//protected ResultSet rs = null;   
-   
-   //---------------------------------
-	/*public void incluir(ContaTO to)
-	{
-		String sqlInsert = "INSERT INTO Conta(agencia, numeroConta, saldo, id_Cliente) VALUES (?, ?, ?, ?)";
-
-   		try (Connection conn = DBConnection.getConnection();
-			 PreparedStatement stm = conn.prepareStatement(sqlInsert);)
-   		{
-   			//stm.setInt(1, to.getIdConta());
-   			stm.setString(1, to.getAgencia());
-   			stm.setString(2, to.getConta());
-            stm.setDouble(3, to.getSaldo());
-            stm.setInt(4, to.getIdCliente());
-   			stm.execute();
-   		}
-   		catch (SQLException e)
-   		{
-   			e.printStackTrace();
-   		}
-   	}
-      
-	public void atualizar(ContaTO to)
-	{
-		String sqlUpdate = "UPDATE Conta SET agencia=?, numeroConta=?, saldo=? WHERE idConta=?";
-
-		try (Connection conn = DBConnection.getConnection();
-			 PreparedStatement stm = conn.prepareStatement(sqlUpdate);)
-		{
-			stm.setString(1, to.getAgencia());
-			stm.setString(2, to.getConta());
-            stm.setDouble(3, to.getSaldo());
-			stm.setInt(4, to.getIdConta());
-			stm.execute();
-		}
-		catch (Exception e)
-        {
-			e.printStackTrace();
-        }
-   	}
-
-	public void excluir(ContaTO to)
-	{
-   		String sqlDelete = "DELETE FROM Conta WHERE idConta = ?";
-
-   		try (Connection conn = DBConnection.getConnection();
-		 	 PreparedStatement stm = conn.prepareStatement(sqlDelete);)
-   		{
-   			stm.setInt(1, to.getIdConta());
-   			stm.execute();
-   		}
-        catch (Exception e)
-        {
-   			e.printStackTrace();
-        }
-   	}*/
-      
+{	
+     
 	public ContaTO carregar(int idConta)
     {
    		ContaTO to = new ContaTO();
-   		String sqlSelect = "SELECT agencia, numeroConta, saldo FROM Conta WHERE idConta = ?";
+   		String sqlSelect = "SELECT agencia, numeroConta, saldo, id_Cliente FROM Conta WHERE idConta = ?";
 
    		try (Connection conn = DBConnection.getConnection();
 			 PreparedStatement stm = conn.prepareStatement(sqlSelect);)
@@ -85,6 +25,7 @@ public class ContaDAO
 					to.setAgencia(rs.getString("agencia"));
 					to.setConta(rs.getString("numeroConta"));
 					to.setSaldo(rs.getDouble("saldo"));
+					to.setIdCliente(rs.getInt("id_Cliente"));
    				}
             }
             catch (SQLException e)

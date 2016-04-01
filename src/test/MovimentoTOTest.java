@@ -13,34 +13,34 @@ public class MovimentoTOTest
 	@Before
 	public void setUp() throws Exception
 	{
-		to = new MovimentoTo();
-		to.setId();
-		to.setIdConta();
-		to.setData("");
-		to.setTipo("");
-		to.setAgencia();
-		to.setConta();
-		to.setValor();
-		to.setSaldoAtual();			
+		to = new MovimentoTO();
+		to.setId(1);
+		to.setIdConta(1);
+		to.setData("31-03-2016");
+		to.setTipo("Saque");
+		to.setAgencia("1111");
+		to.setConta("11111111");
+		to.setValor(10);
+		to.setSaldoAtual(10);			
 	}
 
 	@Test
 	public void testGets()
 	{	
-		assertEquals("getId", to.getId(), 3);
-		assertEquals("getIdConta", to.getIdConta(), );
-		assertEquals("getData", to.getData(), );
-		assertEquals("getTipo", to.getTipo(), );
-		assertEquals("getAgencia", to.getAgencia(), );
-		assertEquals("getConta", to.getConta(), );
-		assertEquals("getValor", to.getValor(), );
-		assertEquals("getSaldoAtual", to.getSaldoAtual(), );
+		assertEquals("getId", to.getId(), 1);
+		assertEquals("getIdConta", to.getIdConta(), 1);
+		assertEquals("getData", to.getData(), "31-03-2016");
+		assertEquals("getTipo", to.getTipo(), "Saque");
+		assertEquals("getAgencia", to.getAgencia(), "1111");
+		assertEquals("getConta", to.getConta(), "11111111");
+		assertEquals("getValor", to.getValor(), 10, 0.0000001);
+		assertEquals("getSaldoAtual", to.getSaldoAtual(), 10, 0.0000001);
 	}
 	
 	@Test
 	public void testEquals()
 	{
-		ClienteTO copia = new ClienteTO();		
+		MovimentoTO copia = new MovimentoTO();		
 		copia.setId(to.getId());
 		copia.setIdConta(to.getIdConta());
 		copia.setData(to.getData());

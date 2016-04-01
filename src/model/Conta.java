@@ -22,6 +22,11 @@ public class Conta
 		setIdConta(idConta);
 	}
 	
+	public Conta()
+	{
+		// TODO Auto-generated constructor stub
+	}
+
 	public double getSaldo()
 	{
 		return saldo;
@@ -76,47 +81,22 @@ public class Conta
 	public void setIdCliente(int idCliente)
 	{
 		this.idCliente = idCliente;
-	}
-	
-	/*public void criar()
-	{
-		ContaDAO dao = new ContaDAO();
-		ContaTO to = new ContaTO();
-		to.setIdConta(idConta);
-		to.setSaldo(saldo);
-		to.setAgencia(agencia);
-		to.setConta(conta);
-		to.setIdCliente(idCliente);
-		dao.incluir(to);
-	}*/
-
-	/*public void atualizar()
-	{
-		ContaDAO dao = new ContaDAO();
-		ContaTO to = new ContaTO();
-		to.setIdConta(idConta);
-		to.setSaldo(saldo);
-		to.setAgencia(agencia);
-		to.setConta(conta);
-		to.setIdCliente(idCliente);
-		dao.atualizar(to);
-	}*/
-
-	/*public void excluir()
-	{
-		ContaDAO dao = new ContaDAO();
-		ContaTO to = new ContaTO();
-		to.setIdConta(idConta);
-		dao.excluir(to);
-	}*/
+	}	
 
 	public void carregar()
 	{
 		ContaDAO dao = new ContaDAO();
 		ContaTO to = dao.carregar(idConta);
-		saldo = to.getSaldo();
-		agencia = to.getAgencia();
-		conta = to.getConta();
-		idCliente = to.getIdCliente();
-	}     
+		setSaldo(to.getSaldo());
+		setAgencia(to.getAgencia());
+		setConta(to.getConta());
+		setIdCliente(to.getIdCliente());
+	}
+	
+	@Override
+	public String toString()
+	{
+		return "Conta [saldo=" + saldo + ", agencia=" + agencia + ", conta=" + conta + ", idConta=" + idConta
+				+ ", idCliente=" + idCliente + "]";
+	}
 }

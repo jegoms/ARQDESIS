@@ -44,4 +44,10 @@ public class ClienteTO
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "ClienteTO [nomeTitular=" + nomeTitular + ", idCliente=" + idCliente + "]";
+	}
 }

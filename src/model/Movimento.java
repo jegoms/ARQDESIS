@@ -2,6 +2,9 @@ package model;
 
 import java.util.*;
 
+import dao.MovimentoDAO;
+import to.MovimentoTO;
+
 public class Movimento
 {
 	protected String data;
@@ -28,13 +31,13 @@ public class Movimento
 	public Movimento(int idConta)
 	{
 		this.idConta = idConta;
-		data = "";
-		tipo = "";
-		agencia = "";
-		conta = "";
-		valor = 0;
-		saldoAtual = 0;
-		id = 0;
+		setData("");
+		setTipo("");
+		setAgencia("");
+		setConta("");
+		setValor(0);
+		setSaldoAtual(0);
+		setId(0);
 	}
    
 	public void setIdConta(int idConta)
@@ -132,29 +135,6 @@ public class Movimento
 		dao.incluir(to);
 	}
 
-	public void atualizar()
-	{
-		MovimentoDAO dao = new MovimentoDAO();
-		MovimentoTO to = new MovimentoTO();
-		to.setId(id);
-		to.setData(data);
-		to.setTipo(tipo);
-		to.setAgencia(agencia);
-		to.setConta(conta);
-		to.setValor(valor);
-		to.setSaldoAtual(saldoAtual);
-		to.setIdConta(idConta);
-		dao.atualizar(to);
-	}
-
-	public void excluir()
-	{
-		MovimentoDAO dao = new MovimentoDAO();
-		MovimentoTO to = new MovimentoTO();
-		to.setId(id);
-		dao.excluir(to);
-	}
-
 	public void carregar()
 	{
 		MovimentoDAO dao = new MovimentoDAO();
@@ -178,5 +158,12 @@ public class Movimento
 	{
 		String saida = ""+ id + data + tipo + agencia + conta + valor + saldoAtual;
 		return saida;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "Movimento [data=" + data + ", tipo=" + tipo + ", agencia=" + agencia + ", conta=" + conta + ", valor="
+				+ valor + ", saldoAtual=" + saldoAtual + ", id=" + id + ", idConta=" + idConta + "]";
 	}
 }

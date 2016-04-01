@@ -34,37 +34,11 @@ public class Cliente
 		return idCliente;
 	}
 		
-	public void criar()
-	{
-		ClienteDAO dao = new ClienteDAO();
-		ClienteTO to = new ClienteTO();
-		to.setIdCliente(idCliente);
-		to.setNome(nomeTitular);
-		dao.incluir(to);
-	}
-
-	public void atualizar()
-	{
-		ClienteDAO dao = new ClienteDAO();
-		ClienteTO to = new ClienteTO();
-		to.setIdCliente(idCliente);
-		to.setNome(nomeTitular);
-		dao.atualizar(to);
-	}
-
-	public void excluir()
-	{
-		ClienteDAO dao = new ClienteDAO();
-		ClienteTO to = new ClienteTO();
-		to.setIdCliente(idCliente);
-		dao.excluir(to);
-	}
-
 	public void carregar()
 	{
 		ClienteDAO dao = new ClienteDAO();
 		ClienteTO to = dao.carregar(idCliente);
-		nomeTitular = to.getNome();	
+		setNome(to.getNome());
 	}
 
 	@Override
